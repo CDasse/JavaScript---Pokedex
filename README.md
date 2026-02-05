@@ -5,10 +5,14 @@ Notre site se base sur les données de **PokéAPI** et est entièrement en **ang
 
 ## Installation du projet et lancement
 
-1. Installer la dépendance npm : `npm install`
-2. Installer vitest : `npm intall -D vitest`
-3. Lancer le projet : `npm run dev`
-4. Lancer les tests : `npm run test`
+1. Clonner le projet : `git clone https://github.com/CDasse/JavaScript---Pokedex.git`
+2. Installer la dépendance npm : `npm install`
+3. Installer vitest : `npm intall -D vitest`
+4. Lancer le projet : `npm run dev`
+5. Lancer les tests : `npm run test`
+
+Un version du projet est égalment déployées à l'adresse suivante : https://cdasse.github.io/JavaScript---Pokedex/
+> ATTENTION : la version déployée comporte quelques petites erreurs d'images et de style
 
 ## Description du projet
 

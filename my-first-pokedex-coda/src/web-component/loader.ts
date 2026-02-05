@@ -1,5 +1,3 @@
-import logoUrl from "./img/favicon.png";
-
 class Loader extends HTMLElement {
     constructor() {
         super();
@@ -8,7 +6,7 @@ class Loader extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="loader-wrapper">
-                <img src="${logoUrl}" class="pokedex-spinner" alt="Loading...">
+                <img src="src/img/favicon.png" class="pokedex-spinner" alt="Loading...">
                 <p>Catch them all...</p>
             </div>`;
     }

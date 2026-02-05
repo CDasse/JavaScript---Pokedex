@@ -23,28 +23,32 @@ export function search() {
 }
 
 async function getPokemonCorrespondingToSearch(searchValue: string) {
-    const arrayOfPokemon = await comparePokemonFromAll(searchValue);
-    if (!arrayOfPokemon) return;
-
     const pokemonContainer = document.getElementById('div-pokemon');
     if (!pokemonContainer) return;
 
     pokemonContainer.innerHTML = "";
 
+    const arrayOfPokemon = await comparePokemonFromAll(searchValue);
+    if (!arrayOfPokemon) return;
+
     if (arrayOfPokemon.length == 0) {
-        pokemonContainer.innerHTML += `<p>Oops! You haven't caught this pokemon yet.</p>`;
+        pokemonContainer.innerHTML += `<p>Oops! You haven't caught this Pokemon yet.</p>`;
     }
+
+    let HTMLContent = "";
 
     for (let name of arrayOfPokemon) {
         const pokemonInformations = await getOnePokemonFromAPI(name);
         if (!pokemonInformations) return;
 
-        pokemonContainer.innerHTML += `
+        HTMLContent += `
             <pokemon-card id="${pokemonInformations.id}" 
                           name="${pokemonInformations.name}" 
                           img="${imgPokemonFromInterface(pokemonInformations)}">
             </pokemon-card>`
     }
+
+    pokemonContainer.innerHTML = HTMLContent;
 }
 
 export async function comparePokemonFromAll(searchValue: string) {

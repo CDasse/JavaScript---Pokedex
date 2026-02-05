@@ -50,14 +50,16 @@ function showSixSpaceForPokemon(page: HTMLElement) {
 
         if (teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]) {
             const type = teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]?.types.map(pokemonType =>
-                `<img src="src/img/${pokemonType.type.name}.png" alt="${pokemonType.type.name}">`).join(" ");
+                `<img src="src/img/${pokemonType.type.name}.png" class="type-icon" alt="${pokemonType.type.name}">`).join(" ");
 
             HTMLContent +=
                 `<div class="slot-full">
                     <pokemon-team id="${teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]?.id}"
                     name="${teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]?.name}"
                     img="${imgPokemonFromInterface(teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]!)}">
+                    <div>
                         ${type}
+                        </div>
                     </pokemon-team>
                     <button type="button" data-pokemon-id="${numberOfPokemon}">Change Pokemon</button>
                 </div>`;
@@ -110,10 +112,15 @@ async function openSearchToChoosePokemonForTeam(btnToChoose: NodeListOf<Element>
 
             appContainer.innerHTML = '';
 
-            appContainer.innerHTML += `
-                <input type="search" id="searchForTeam" placeholder="Search pokemon by name...">
-                <p id="errorMessageForTeam"></p>
-                <input type="button" value="Search" id="searchBtnForTeam">`
+            appContainer.innerHTML = `
+                <div class="search-team-container">
+                    <h3>Choose your Pokemon</h3>
+                    <div class="custom-search-wrapper">
+                        <input type="search" id="searchForTeam" placeholder="Search a pokemon by name...">
+                        <button type="button" id="searchBtnForTeam">SEARCH</button>
+                    </div>
+                    <p id="errorMessageForTeam"></p>
+                </div>`;
 
             await searchPokemonForTeam(elementId);
         })
@@ -146,6 +153,11 @@ async function getPokemonCorrespondingToSearchForTeam(searchValue: string, eleme
     const pokemonContainer = document.getElementById('div-pokemon');
     if (!pokemonContainer) return;
 
+    const existingResults = document.getElementById('propositionOfPokemon');
+    if (existingResults) {
+        existingResults.remove();
+    }
+
     const propositionOfPokemonContainer = document.createElement('div');
     if (!propositionOfPokemonContainer) return;
     propositionOfPokemonContainer.id = "propositionOfPokemon";
@@ -177,7 +189,7 @@ async function showPokemonCorrespondingToSearchForTeam(arrayOfPokemon: string[],
         const pokemonId = pokemonInformations.id;
 
         const type = pokemonInformations.types.map(pokemonType =>
-            `<img src="src/img/${pokemonType.type.name}.png" alt="${pokemonType.type.name}">`).join(" ");
+            `<img src="src/img/${pokemonType.type.name}.png" class="type-icon" alt="${pokemonType.type.name}">`).join(" ");
 
         HTMLContainer.innerHTML += `<pokemon-team id="${pokemonId}" 
                                                   name="${pokemonInformations.name}" 
@@ -313,38 +325,43 @@ function showPokemonOfLocalStorageTeam(btnChangeTeam: NodeListOf<Element>, pokem
 }
 
 function renderTeamInterface(pokemonContainer: HTMLElement, nameOfTeam: string) {
-    pokemonContainer.innerHTML = `
-        <div class="team-grid">
-            </div>
-        <div class="team-footer">
-            <button type="button" data-save-id="${nameOfTeam}">Save the team into Local Storage</button>
-        </div>`;
+    let html = `<div class="team-header"><h3>${nameOfTeam}</h3></div>`;
+    html += `<div class="team-grid">`;
 
     for (let i = 1; i < 7; i++) {
         let numberOfPokemon = `pokemon_${i}`;
         if (teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]) {
             const type = teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]?.types.map(pokemonType =>
-                `<img src="src/img/${pokemonType.type.name}.png" alt="${pokemonType.type.name}">`).join(" ");
+                `<img src="src/img/${pokemonType.type.name}.png" class="type-icon" alt="${pokemonType.type.name}">`).join(" ");
 
-            pokemonContainer.innerHTML +=
-                `<pokemon-team id="${teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]!.id}"
-                    name="${teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]?.name}"
-                    img="${imgPokemonFromInterface(teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]!)}">
-                        ${type}
-                </pokemon-team>
-                <button type="button" data-pokemon-id="${numberOfPokemon}">Change Pokemon</button>`;
+            html += `
+                <div class="slot-full">
+                    <pokemon-team id="${teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]!.id}"
+                        name="${teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]?.name}"
+                        img="${imgPokemonFromInterface(teamOfPokemon[numberOfPokemon as keyof TeamOfPokemon]!)}">
+                        <div class="type-container">${type}</div>
+                    </pokemon-team>
+                    <button type="button" data-pokemon-id="${numberOfPokemon}">Change Pokemon</button>
+                </div>`;
         } else {
-            pokemonContainer.innerHTML += `
+            html += `
                 <div class="team">
-                    <p>Pokemon ${i}</p>
+                    <p>Empty Slot ${i}</p>
                     <div id="team-number-${i}">
                      <button type="button" data-pokemon-id="pokemon_${i}">Choose my pokemon</button>
                     </div>
-                </div>`
+                </div>`;
         }
     }
 
-    pokemonContainer.innerHTML += `<button type="button" data-save-id="${nameOfTeam}">Save the team into Local Storage</button>`;
+    html += `</div>`;
+
+    html += `
+        <div class="save-action-container">
+            <button type="button" data-save-id="${nameOfTeam}">Save Changes</button>
+        </div>`;
+
+    pokemonContainer.innerHTML = html;
 }
 
 function saveExistingTeamIntoLocalStorage(btnSaveChanges: Element) {

@@ -790,3 +790,163 @@ pokemon-page progress::-moz-progress-bar {
     transform: scale(0.65); /* Réduction des miniatures */
     margin: -15px; /* On réduit l'espace perdu autour du scale */
 }
+
+/* Conteneur global */
+.page-team .search-team-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 30px 0;
+}
+
+/* Titre */
+.page-team .search-team-container h3 {
+    color: white;
+    text-transform: none; /* Selon ton screen, c'est pas en majuscule */
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Le wrapper (La barre noire avec bordure bleue) */
+.page-team .custom-search-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 600px; /* À ajuster selon la taille de ta barre du haut */
+    border: 2px solid #00f2ff;
+    background: #0a1118;
+}
+
+/* L'input text */
+.page-team #searchForTeam {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 15px;
+    color: #888; /* Couleur du placeholder/texte */
+    font-size: 1rem;
+    outline: none;
+}
+
+/* Le bouton SEARCH (Carré et bleu néon) */
+.page-team #searchBtnForTeam {
+    background: transparent !important; /* On garde le fond sombre */
+    color: #00f2ff !important;
+    border-left: 2px solid #00f2ff !important; /* Séparation interne */
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    padding: 0 25px !important;
+    font-weight: bold !important;
+    cursor: pointer;
+    margin: 0 !important;
+    border-radius: 0 !important; /* On force les angles droits */
+    transition: 0.3s;
+}
+
+.page-team #searchBtnForTeam:hover {
+    background: #00f2ff !important;
+    color: #000 !important;
+}
+
+/* Conteneur des propositions */
+.page-team #propositionOfPokemon {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 30px;
+}
+
+/* On force une taille constante sur le web-component */
+.page-team #propositionOfPokemon pokemon-team {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Si tes cartes ont des hauteurs différentes à cause des images */
+.page-team #propositionOfPokemon pokemon-team img {
+    height: 150px; /* Taille fixe pour les images */
+    object-fit: contain;
+}
+
+/* On cible toutes les images de types à l'intérieur de tes composants */
+.page-team pokemon-team img {
+    max-width: 100px !important; /* Largeur max pour un badge de type */
+    height: auto !important;
+    display: inline-block !important;
+    vertical-align: middle;
+}
+
+/* Mais on veut que l'image du Pokémon (la grande) reste grande ! */
+/* On suppose que l'image du Pokémon a une classe ou est la première img */
+.page-team pokemon-team img:first-of-type {
+    max-width: 120px !important;
+    height: auto !important;
+}
+
+/* Là, c'est chirurgical, ça ne touchera que les petits badges */
+.type-icon {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: contain;
+    margin: 2px;
+}
+
+/*--------------------------------------------------------------------------*/
+/*----------------------------WEAKNESSES-TEAM-------------------------------*/
+/*--------------------------------------------------------------------------*/
+
+/* --- SECTION WEAKNESS (LE DASHBOARD) --- */
+#weakness-pokemon {
+    margin-top: 50px;
+    padding: 25px;
+    background: rgba(10, 20, 30, 0.8); /* Fond sombre transparent */
+    border: 2px solid #00f2ff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Titres des sections (Defense / Attack) */
+#weakness-pokemon p {
+    color: #00f2ff;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    border-left: 4px solid #00f2ff;
+    padding-left: 12px;
+}
+
+/* Conteneur des icônes de types */
+.defense-weakness,
+.attack-weakness {
+    display: block; /* Laisse les images couler naturellement */
+    width: 100%;
+}
+
+/* Style des badges de types dans les faiblesses */
+#weakness-pokemon img {
+    height: 32px; /* Taille uniforme pour toutes les icônes */
+    width: auto;
+    margin: 4px;
+    transition: transform 0.2s ease-in-out;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+}
+
+
+/* Cas où il n'y a pas de faiblesse (le texte de remplacement) */
+#weakness-pokemon .defense-weakness p:only-child,
+#weakness-pokemon .attack-weakness p:only-child {
+    border: none;
+    color: #888;
+    font-style: italic;
+    text-transform: none;
+}

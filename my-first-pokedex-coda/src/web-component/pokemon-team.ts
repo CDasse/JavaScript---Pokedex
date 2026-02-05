@@ -1,3 +1,6 @@
+import logoUrl from "./img/favicon.png";
+
+
 class PokemonTeam extends HTMLElement {
     constructor() {
         super();
@@ -28,7 +31,7 @@ class PokemonTeam extends HTMLElement {
             <div class="pokemon-card" id="${id}">
                 <p>${name}</p>
                 <img src=${img} alt="Image of ${name}" 
-                height="100" onerror="this.src='src/img/favicon.png'; this.onerror=null;">
+                height="100" onerror="this.src='${logoUrl}'; this.onerror=null;">
                 <slot></slot>
             </div>`
         }

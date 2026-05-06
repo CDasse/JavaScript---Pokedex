@@ -30,6 +30,13 @@ jobs:
         working-directory: ./my-first-pokedex-coda
         run: npm run build
 
+      - name: Run
+        working-directory: ./my-first-pokedex-coda
+        run: npm run dev & npx wait-on http://localhost:5173/JavaScript---Pokedex/
+
+      - name: GreenIT Analysis
+        uses: ythirion/greenit-analysis-action@0.1.0
+
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:

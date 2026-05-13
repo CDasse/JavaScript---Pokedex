@@ -66,8 +66,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
-          working-directory: ./my-first-pokedex-coda
-          path: playwright-report/
+          path: my-first-pokedex-coda/playwright-report/
           retention-days: 30
 
   deploy:
